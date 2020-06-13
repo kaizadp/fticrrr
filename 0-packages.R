@@ -60,7 +60,7 @@ gg_vankrev <- function(data,mapping){
     ylim(0,2.5) +
     # add boundary lines for Van Krevelen regions
     geom_segment(x = 0.0, y = 1.5, xend = 1.2, yend = 1.5,color="black",linetype="longdash") +
-    geom_segment(x = 0.0, y = 2, xend = 1.2, yend = 2,color="black",linetype="longdash") +
+    #geom_segment(x = 0.0, y = 2, xend = 1.2, yend = 2,color="black",linetype="longdash") +
     #geom_segment(x = 0.0, y = 1, xend = 1.2, yend = 0.75,color="black",linetype="longdash") +
     geom_segment(x = 0.0, y = 0.8, xend = 1.2, yend = 0.8,color="black",linetype="longdash")+
     guides(colour = guide_legend(override.aes = list(alpha=1)))
@@ -80,5 +80,6 @@ FTICR_META_HCOC = "processed/fticr_meta_hcoc.csv"
 
 FTICR_RELABUND_CORES = "processed/fticr_relabund_cores.csv"
 FTICR_RELABUND_TRT = "processed/fticr_relabund.csv"
+FTICR_RELABUND_SUMMARY = "processed/fticr_relabund_summary.csv"
 
 
