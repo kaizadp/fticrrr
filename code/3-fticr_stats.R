@@ -6,6 +6,8 @@
 ## this script will perform statistical analyses on processed FTICR-MS data
 ## use relative abundances for statistical analyses
 
+source("code/0-packages.R")
+
 # ------------------------------------------------------- ----
 
 

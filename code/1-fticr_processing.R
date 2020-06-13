@@ -7,7 +7,7 @@
  ## generate clean files that can be used for subsequent analysis.
  ## each dataset will generate longform files of (a) all cores, (b) summarized data for each treatment (i.e. cores combined) 
 
-source("0-packages.R")
+source("code/0-packages.R")
 
 # ------------------------------------------------------- ----
 
