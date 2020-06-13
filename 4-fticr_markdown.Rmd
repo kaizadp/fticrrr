@@ -20,6 +20,8 @@ meta_hcoc = read.csv(FTICR_META_HCOC)
 
 relabund_cores = read.csv(FTICR_RELABUND_CORES)
 relabund_trt = read.csv(FTICR_RELABUND_TRT)
+relabund_summary = read.csv(FTICR_RELABUND_SUMMARY)
+
 ```
 
 ## VAN KREVELEN DOMAINS
@@ -44,26 +46,46 @@ gg_vankrev(fticr_hcoc, aes(x = OC, y = HC, color = sat_level))+
 ```
 
 ### VK plots with marginal plots
-```{r vk2, fig.height = 6, fig.width=6}
+```{r vk_marginal, fig.height = 6, fig.width=6}
 
 gg_fm = gg_vankrev(fticr_hcoc, aes(x = OC, y = HC, color = sat_level))+
   stat_ellipse()+
+  annotate("text", label = "aliphatic", x = 1.2, y = 1.9, hjust="right")+
+  annotate("text", label = "polyphenolic", x = 1.2, y = 1.2, hjust="right")+
+  annotate("text", label = "condensed \n aromatic", x = 1.2, y = 0.2, hjust="right")+
   theme_kp()
 
 ggMarginal(gg_fm,groupColour = TRUE,groupFill = TRUE)
 
 ```
 
+
 ## RELATIVE ABUNDANCE FIGURES
 
-```{r}
-
-ggplot(relabund_trt, aes(x = sat_level, y = rel_abund, fill = Class))+
+```{r relabund_bar}
+relabund_trt %>%  
+dplyr::mutate(Class = factor(Class, levels = 
+                          c("AminoSugar", "Carb","Lipid","Protein","UnsatHC",
+                            "ConHC","Lignin","Tannin","Other"))) %>% 
+  ggplot(aes(x = sat_level, y = rel_abund, fill = Class))+
   geom_bar(stat = "identity")+
   scale_fill_viridis_d(option = "inferno")+
+  labs(x = "percent saturation",
+       y = "relative abundance (%)")+
   theme_kp()
 ```
 
 
 ## RELATIVE ABUNDANCE TABLES
+Different letters denote significant differences among saturation levels at alpha = 0.05.
+
+```{r}
+relabund_summary %>% 
+  dplyr::select(sat_level, Class, relative_abundance) %>% 
+  dplyr::mutate(Class = factor(Class, levels = 
+                          c("AminoSugar", "Carb","Lipid","Protein","UnsatHC",
+                            "ConHC","Lignin","Tannin","Other"))) %>% 
+  spread(sat_level, relative_abundance) %>% 
+  knitr::kable(align = "c")
+```
 
