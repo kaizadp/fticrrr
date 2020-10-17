@@ -1,0 +1,60 @@
+---
+title: "fticrrr report"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      collapse = TRUE,
+                      warning = FALSE,
+                      message = FALSE,
+                      comment = "#>",
+                      fig.path = ("markdown-figs/fticrrr/"))
+library(drake)
+```
+
+---
+
+## FTICR domains
+
+### compound classes
+```{r domains_classes, fig.height=4}
+readd(gg_vankrevelens)$gg_vk_domains+theme(legend.position = "right")
+```
+
+### NOSC
+```{r domains_nosc, fig.asp=1, fig.height=2}
+readd(gg_vankrevelens)$gg_vk_domains_nosc
+```
+
+---
+
+## Van Krevelen plots
+
+option 1
+```{r gg_vk1, fig.width=9, fig.height=4}
+readd(gg_vankrevelens)$gg_vk1
+```
+
+option 2, with marginal plots
+```{r gg_vk2, fig.asp=1, fig.height=3}
+readd(gg_vankrevelens)$gg_vk2
+```
+
+
+---
+
+## PCA
+
+```{r PCA, fig.width=5, fig.height=8}
+readd(gg_pca)+theme_kp()+xlim(-3.5,3.5)+ylim(-3,3)
+```
+
+---
+
+## Relative abundance
+
+```{r relabund}
+readd(gg_relabund_bar)+theme(legend.position = "right")
+```
+
