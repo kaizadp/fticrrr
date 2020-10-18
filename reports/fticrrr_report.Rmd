@@ -19,12 +19,12 @@ library(drake)
 
 ### compound classes
 ```{r domains_classes, fig.height=4}
-readd(gg_vankrevelens)$gg_vk_domains+theme(legend.position = "right")
+readd(gg_vankrevelen_domains)$gg_vk_domains+theme(legend.position = "right")
 ```
 
 ### NOSC
 ```{r domains_nosc, fig.asp=1, fig.height=2}
-readd(gg_vankrevelens)$gg_vk_domains_nosc
+readd(gg_vankrevelen_domains)$gg_vk_domains_nosc
 ```
 
 ---

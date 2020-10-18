@@ -8,7 +8,7 @@ fticrrr report
 ### compound classes
 
 ``` r
-readd(gg_vankrevelens)$gg_vk_domains+theme(legend.position = "right")
+readd(gg_vankrevelen_domains)$gg_vk_domains+theme(legend.position = "right")
 ```
 
 ![](markdown-figs/fticrrr/domains_classes-1.png)<!-- -->
@@ -16,7 +16,7 @@ readd(gg_vankrevelens)$gg_vk_domains+theme(legend.position = "right")
 ### NOSC
 
 ``` r
-readd(gg_vankrevelens)$gg_vk_domains_nosc
+readd(gg_vankrevelen_domains)$gg_vk_domains_nosc
 ```
 
 ![](markdown-figs/fticrrr/domains_nosc-1.png)<!-- -->
