@@ -1,21 +1,3 @@
-# relative abundance ------------------------------------------------------
-
-compute_relabund_cores = function(fticr_data_longform, fticr_meta, ...){
-  fticr_data_longform %>% 
-    # add the Class column to the data
-    left_join(dplyr::select(fticr_meta, formula, Class), by = "formula") %>% 
-    # calculate abundance of each Class as the sum of all counts
-    group_by(CoreID, Class, ...) %>%
-    dplyr::summarise(abund = sum(presence)) %>%
-    ungroup %>% 
-    # create a new column for total counts per core assignment
-    # and then calculate relative abundance  
-    group_by(CoreID, ...) %>% 
-    dplyr::mutate(total = sum(abund),
-                  relabund  = round((abund/total)*100,2))
-}
-
-
 # pca functions -----------------------------------------------------------
 library(ggbiplot)
 

@@ -23,8 +23,9 @@ library(drake)
 library(tidyverse)
 
 source("code/a-functions_processing.R")
-source("code/b-functions_computing.R")
-source("code/c-functions_plotting.R")
+source("code/b-functions_relabund.R")
+source("code/c-functions_vankrevelen.R")
+source("code/d-functions_statistics.R")
 
 # 3. load drake plans -----------------------------------------------------
 fticr_processing_plan = drake_plan(

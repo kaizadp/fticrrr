@@ -41,24 +41,6 @@ gg_vankrev <- function(data,mapping){
 }
 
 
-# relabund bar graphs -----------------------------------------------------
-plot_relabund = function(relabund_cores, ...){
-  relabund_trt = 
-    relabund_cores %>% 
-    group_by(..., Class) %>% 
-    dplyr::summarize(rel_abund = round(mean(relabund),2),
-                     se  = round((sd(relabund/sqrt(n()))),2),
-                     relative_abundance = paste(rel_abund, "\u00b1",se)) %>% 
-    ungroup() %>% 
-    mutate(Class = factor(Class, levels = c("aliphatic", "unsaturated/lignin", "aromatic", "condensed aromatic")))
-
-  relabund_trt %>% 
-    ggplot(aes(x = sat_level, y = rel_abund, fill = Class))+
-    geom_bar(stat = "identity")+
-    theme_kp()
-}
-
-
 # van krevelen plots ------------------------------------------------------
 
 plot_vankrevelens = function(fticr_data_longform, fticr_meta){
