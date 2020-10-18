@@ -1,3 +1,16 @@
+# FTICRRR: fticr results in R
+# Kaizad F. Patel
+# October 2020
+
+################################################## #
+
+## `functions_vankrevelens.R`
+## this script will load functions for plotting Van Krevelen diagrams
+## source this file in the `fticr_drake_plan.R` file, do not run the script here.
+
+################################################## #
+################################################## #
+
 
 theme_kp <- function() {  # this for all the elements common across plots
   theme_bw() %+replace%
@@ -37,43 +50,45 @@ gg_vankrev <- function(data,mapping){
     geom_segment(x = 0.0, y = 0.7, xend = 1.2, yend = 0.4,color="black",linetype="longdash") +
     geom_segment(x = 0.0, y = 1.06, xend = 1.2, yend = 0.51,color="black",linetype="longdash") +
     guides(colour = guide_legend(override.aes = list(alpha=1)))
-  
 }
 
 
 # van krevelen plots ------------------------------------------------------
-
-plot_vankrevelens = function(fticr_data_longform, fticr_meta){
-
+plot_vankrevelen_domains = function(fticr_meta){
+  
   gg_vk_domains = 
     gg_vankrev(fticr_meta, aes(x = OC, y = HC, color = Class))+
     scale_color_manual(values = PNWColors::pnw_palette("Sunset2"))+
     theme_kp()
-   
+  
   gg_vk_domains_nosc = 
     gg_vankrev(fticr_meta, aes(x = OC, y = HC, color = as.numeric(NOSC)))+
     scale_color_gradientn(colors = PNWColors::pnw_palette("Bay"))+
     theme_kp()
   
-fticr_hcoc = 
-  fticr_data_longform %>% 
-  left_join(dplyr::select(fticr_meta, formula, HC, OC), by = "formula")
+  list(gg_vk_domains = gg_vk_domains,
+       gg_vk_domains_nosc = gg_vk_domains_nosc)
+}
 
-gg_vk1 = 
-  gg_vankrev(fticr_hcoc, aes(x = OC, y = HC, color = sat_level))+
-  facet_grid(.~sat_level)+
-  theme_kp()
-
-gg_fm = gg_vankrev(fticr_hcoc, aes(x = OC, y = HC, color = sat_level))+
-  stat_ellipse()+
-  theme_kp()
-
-gg_vk2 = 
-  ggExtra::ggMarginal(gg_fm,groupColour = TRUE,groupFill = TRUE)
-
-list(gg_vk_domains = gg_vk_domains,
-     gg_vk_domains_nosc = gg_vk_domains_nosc,
-     gg_vk1 = gg_vk1,
-     gg_vk2 = gg_vk2)
+plot_vankrevelens = function(fticr_data_longform, fticr_meta){
+  
+  fticr_hcoc = 
+    fticr_data_longform %>% 
+    left_join(dplyr::select(fticr_meta, formula, HC, OC), by = "formula")
+  
+  gg_vk1 = 
+    gg_vankrev(fticr_hcoc, aes(x = OC, y = HC, color = sat_level))+
+    facet_grid(.~sat_level)+
+    theme_kp()
+  
+  gg_fm = gg_vankrev(fticr_hcoc, aes(x = OC, y = HC, color = sat_level))+
+    stat_ellipse()+
+    theme_kp()
+  
+  gg_vk2 = 
+    ggExtra::ggMarginal(gg_fm,groupColour = TRUE,groupFill = TRUE)
+  
+  list(gg_vk1 = gg_vk1,
+       gg_vk2 = gg_vk2)
 }
 
