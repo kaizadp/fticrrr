@@ -29,3 +29,25 @@ compute_fticr_pca = function(relabund_cores){
 }
 
 
+compute_permanova = function(relabund_cores, indepvar){
+  relabund_wide = 
+    relabund_cores %>% 
+    ungroup() %>% 
+    mutate(Class = factor(Class, 
+                          levels = c("aliphatic", "unsaturated/lignin", 
+                                     "aromatic", "condensed aromatic"))) %>% 
+    dplyr::select(-c(abund, total)) %>% 
+    spread(Class, relabund) %>% 
+    replace(is.na(.), 0)
+  
+  permanova_fticr_all = 
+    adonis(relabund_wide %>% dplyr::select(aliphatic:`condensed aromatic`) ~ indepvar, 
+           data = relabund_wide)
+  
+  broom::tidy(permanova_fticr_all$aov.tab)
+}
+
+variables = c("sat_level", "treatment")
+indepvar = paste(variables, collapse = " + ")
+
+compute_permanova(indepvar)
