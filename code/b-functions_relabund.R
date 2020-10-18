@@ -1,4 +1,16 @@
-# relative abundance ------------------------------------------------------
+# FTICRRR: fticr results in R
+# Kaizad F. Patel
+# October 2020
+
+################################################## #
+
+## `functions_relabund.R`
+## this script will load functions for computing and plotting relative abundances
+## source this file in the `fticr_drake_plan.R` file, do not run the script here.
+
+################################################## #
+################################################## #
+
 
 compute_relabund_cores = function(fticr_data_longform, fticr_meta, ...){
   fticr_data_longform %>% 
@@ -17,10 +29,27 @@ compute_relabund_cores = function(fticr_data_longform, fticr_meta, ...){
 
 
 # relabund bar graphs -----------------------------------------------------
-plot_relabund = function(relabund_cores, ...){
+
+      ## plot_relabund = function(relabund_cores, ...){
+      ##   relabund_trt = 
+      ##     relabund_cores %>% 
+      ##     group_by(..., Class) %>% 
+      ##     dplyr::summarize(rel_abund = round(mean(relabund),2),
+      ##                      se  = round((sd(relabund/sqrt(n()))),2),
+      ##                      relative_abundance = paste(rel_abund, "\u00b1",se)) %>% 
+      ##     ungroup() %>% 
+      ##     mutate(Class = factor(Class, levels = c("aliphatic", "unsaturated/lignin", "aromatic", "condensed aromatic")))
+      ##   
+      ##   relabund_trt %>% 
+      ##     ggplot(aes(x = sat_level, y = rel_abund, fill = Class))+
+      ##     geom_bar(stat = "identity")+
+      ##     theme_kp()
+      ## }
+
+plot_relabund = function(relabund_cores, TREATMENTS){
   relabund_trt = 
     relabund_cores %>% 
-    group_by(..., Class) %>% 
+    group_by(!!!TREATMENTS, Class) %>% 
     dplyr::summarize(rel_abund = round(mean(relabund),2),
                      se  = round((sd(relabund/sqrt(n()))),2),
                      relative_abundance = paste(rel_abund, "\u00b1",se)) %>% 
@@ -32,3 +61,5 @@ plot_relabund = function(relabund_cores, ...){
     geom_bar(stat = "identity")+
     theme_kp()
 }
+
+
